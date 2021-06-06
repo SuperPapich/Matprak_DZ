@@ -46,12 +46,21 @@ def easy_stat(data) -> None:
     # print(desribe_data)
 
 
-def hard_stat(date) -> None:
-    pass
+def hard_stat(date):
+    """ №3 Не такая уж простая статистика"""
+    # Матрица корреляции
+    correlation = data.corr()
 
+    # print(correlation)
+    correlation_shape = correlation.shape
+    # print(correlation_shape)
+
+    # Удаляем колонку с наибольшей корреляцией с ценой
+    highest_corr = correlation.drop("price", axis=0)["price"].idxmax()
+    return correlation
 
 
 if __name__ == "__main__":
     data = get_data()
     easy_stat(data)
-    hard_stat(data)
+    correlation = hard_stat(data)

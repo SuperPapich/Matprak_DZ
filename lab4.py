@@ -1,6 +1,7 @@
 import pandas as pd
 import numpy as np
 import matplotlib.pyplot as plt
+import seaborn as sns
 
 
 def get_data():
@@ -116,10 +117,22 @@ def dop_clear_data(data):
     # print(data.shape)
 
 
-def more_graphics(data,correlation):
+def more_graphics(data, correlation):
     """ №9 Построить доп. графики """
-    pass
+    #sns.barplot(x="weekday", y="price", data=data, color='blue')
+    #plt.show()
 
+    #sns.boxplot(x="view", y="price", data=data, hue="condition")
+    #plt.show()
+
+    sns.jointplot(x="price", y="weekday", data=data, kind="kde")
+    plt.show()
+
+
+def learning(data):
+    """ №10 машинное обучение"""
+    y = data["price"]
+    x = data.drop("price", axis=1)
 
 
 
@@ -133,3 +146,4 @@ if __name__ == "__main__":
     #build_poin_diagram(correlation)
     dop_clear_data(data)
     more_graphics(data, correlation)
+    learning(data)

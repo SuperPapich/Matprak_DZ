@@ -131,8 +131,45 @@ def more_graphics(data, correlation):
 
 def learning(data):
     """ №10 машинное обучение"""
+    from sklearn.model_selection import train_test_split
+    from sklearn.linear_model import LinearRegression, SGDRegressor
+    from sklearn.metrics import mean_squared_error
+
+    # Обучаем первую модель
     y = data["price"]
     x = data.drop("price", axis=1)
+
+    X_train, X_test, y_train, y_test = train_test_split(x, y, test_size=0.2, random_state=42)
+
+    # print(X_train.shape)
+    # print(X_test.shape)
+
+    model_lr = LinearRegression()
+    model_lr.fit(X_train, y_train)
+    y_pred_train = model_lr.predict(X_train)
+    y_pred_test = model_lr.predict(X_test)
+
+    mse_lr_train = mean_squared_error(y_train, y_pred_train)
+    print(f"Linear Regression MSE on train data: {mse_lr_train}")
+
+    mse_lr_test = mean_squared_error(y_test, y_pred_test)
+    print(f"Linear Regression MSE on test data: {mse_lr_test}")
+
+    # Обучаем другую модель из библиотеки
+
+    model_lr_second = SGDRegressor()
+    model_lr_second.fit(X_train, y_train)
+
+    y_pred_train_second = model_lr_second.predict(X_train)
+    y_pred_test_second = model_lr_second.predict(X_test)
+
+    mse_regr_train = mean_squared_error(y_train, y_pred_train_second)
+    print(f"Ridge MSE on train data: {mse_regr_train}")
+
+    mse_regr_test = mean_squared_error(y_test, y_pred_test_second)
+    print(f"Ridge MSE on test data: {mse_regr_test}")
+
+
 
 
 
